@@ -3,8 +3,8 @@ inputs = [1, 2, 3, 4]
 weights = [0.2, 0.3, 0.5, 0.8]
 bias = 2.0
 
-output = inputs[0]*weights[0] + inputs[1]*weights[1] + inputs[2]*weights[2] + bias
-print(output)
+output = inputs[0]*weights[0] + inputs[1]*weights[1] + inputs[2]*weights[2] + inputs[3]*weights[3] + bias
+# print(output)
 
 #for multiple neurons, refer march 9
 inputsMul = [1, 2, 3, 4]
@@ -20,7 +20,7 @@ outputMul = [inputsMul[0]*weights1[0] + inputsMul[1]*weights1[1] + inputsMul[2]*
           inputsMul[0]*weights2[0] + inputsMul[1]*weights2[1] + inputsMul[2]*weights2[2] + inputsMul[3]*weights2[3] + bias2,
           inputsMul[0]*weights3[0] + inputsMul[1]*weights3[1] + inputsMul[2]*weights3[2] + inputsMul[3]*weights3[3] + bias3]
 
-print(outputMul)
+# print(outputMul)
 
 #Simplifying:
 
@@ -39,7 +39,7 @@ for neuron_weights, neuron_bias in zip(weightsSim, biases):
     neuron_output = neuron_output + neuron_bias
     layer_outputs.append(neuron_output)
 
-print(layer_outputs)
+# print(layer_outputs)
 
 '''
 TRACING - 
@@ -134,3 +134,26 @@ for neuron_weights, neuron_bias in zip(weightsSim, biases):
     layer_outputs = [3.8, 3.0, 4.5]
 '''
 
+#numpy
+
+import numpy as np
+
+inputs = [1, 2, 3, 4]
+weights = [0.2, 0.3, 0.5, 0.8]
+bias = 2.0
+
+numpyOutput = np.dot(inputs, weights) + bias
+
+print(numpyOutput)
+
+#numpyLayers
+
+inputsMul = [1, 2, 3, 4]
+weightsSim = [[0.3, 0.4, 0.9, -0.5], 
+              [0.4, 0.6, -0.8, 0.2], 
+              [0.7, -0.1, 0.9, 0.2]]
+
+biases = [2.0, 3.0, 0.5]
+
+numpyLayerOutput = np.dot(weightsSim, inputsMul) + biases
+print(numpyLayerOutput)
