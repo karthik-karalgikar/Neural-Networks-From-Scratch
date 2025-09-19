@@ -1,27 +1,3 @@
-#for only one neuron 
-inputs = [1, 2, 3, 4]
-weights = [0.2, 0.3, 0.5, 0.8]
-bias = 2.0
-
-output = inputs[0]*weights[0] + inputs[1]*weights[1] + inputs[2]*weights[2] + inputs[3]*weights[3] + bias
-# print(output)
-
-#for multiple neurons, refer march 9
-inputsMul = [1, 2, 3, 4]
-weights1 = [0.3, 0.4, 0.9, -0.5]
-weights2 = [0.4, 0.6, -0.8, 0.2]
-weights3 = [0.7, -0.1, 0.9, 0.2]
-
-bias1 = 2.0
-bias2 = 3.0
-bias3 = 0.5
-
-outputMul = [inputsMul[0]*weights1[0] + inputsMul[1]*weights1[1] + inputsMul[2]*weights1[2] + inputsMul[3]*weights1[3] + bias1, 
-          inputsMul[0]*weights2[0] + inputsMul[1]*weights2[1] + inputsMul[2]*weights2[2] + inputsMul[3]*weights2[3] + bias2,
-          inputsMul[0]*weights3[0] + inputsMul[1]*weights3[1] + inputsMul[2]*weights3[2] + inputsMul[3]*weights3[3] + bias3]
-
-# print(outputMul)
-
 #Simplifying:
 
 inputsMul = [1, 2, 3, 4]
@@ -39,7 +15,7 @@ for neuron_weights, neuron_bias in zip(weightsSim, biases):
     neuron_output = neuron_output + neuron_bias
     layer_outputs.append(neuron_output)
 
-# print(layer_outputs)
+print(layer_outputs)
 
 '''
 TRACING - 
@@ -133,54 +109,3 @@ for neuron_weights, neuron_bias in zip(weightsSim, biases):
 
     layer_outputs = [3.8, 3.0, 4.5]
 '''
-
-#numpy
-
-import numpy as np
-
-inputs = [1, 2, 3, 4]
-weights = [0.2, 0.3, 0.5, 0.8]
-bias = 2.0
-
-numpyOutput = np.dot(inputs, weights) + bias
-
-print(numpyOutput)
-
-#numpyLayers
-
-inputsMul = [1, 2, 3, 4]
-weightsSim = [[0.3, 0.4, 0.9, -0.5], 
-              [0.4, 0.6, -0.8, 0.2], 
-              [0.7, -0.1, 0.9, 0.2]]
-
-biases = [2.0, 3.0, 0.5]
-
-numpyLayerOutput = np.dot(weightsSim, inputsMul) + biases
-print(numpyLayerOutput)
-
-#batches of input
-
-inputsBatch = [[1, 2, 3, 4],
-               [2, 3, 4, 5],
-               [5, 6, 7, 8]]
-
-numpyBatchOutput = np.dot(inputsBatch, np.array(weightsSim).T) + biases
-print(numpyBatchOutput)
-
-#here, if we do not take the transpose of weightsSim, we will get the error - 
-# ValueError: shapes (3,4) and (3,4) not aligned: 4 (dim 1) != 3 (dim 0)
-#because the number of rows of the first matrix is not equal to the number of the columns of the 2nd matrix
-
-#Adding layers:
-
-weightsSim2 = [[0.1, -0.14, 0.5], 
-               [-0.5, 0.12, -0.33], 
-               [-0.44, 0.73, -0.13]]
-
-biases2 = [-1, 2, -0.5]
-
-layer1_numpyBatchOutput = np.dot(inputsBatch, np.array(weightsSim).T) + biases
-layer2_numpyBatchOutput = np.dot(layer1_numpyBatchOutput, np.array(weightsSim).T) + biases
-
-#so here, we are adding a layer and for the second layer, the input layer will be the output of the 1st layer.
-#but this is too shabby, so we will create an object for this
