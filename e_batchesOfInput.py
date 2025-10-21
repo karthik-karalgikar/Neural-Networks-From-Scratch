@@ -18,6 +18,8 @@ print(numpyBatchOutput)
 # ValueError: shapes (3,4) and (3,4) not aligned: 4 (dim 1) != 3 (dim 0)
 #because the number of rows of the first matrix is not equal to the number of the columns of the 2nd matrix
 
+# visualization - transposeReasonBatches.png
+
 #Adding layers:
 
 weightsSim2 = [[0.1, -0.14, 0.5], 

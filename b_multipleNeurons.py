@@ -13,3 +13,5 @@ outputMul = [inputsMul[0]*weights1[0] + inputsMul[1]*weights1[1] + inputsMul[2]*
           inputsMul[0]*weights3[0] + inputsMul[1]*weights3[1] + inputsMul[2]*weights3[2] + inputsMul[3]*weights3[3] + bias3]
 
 print(outputMul)
+
+#visualization - multipleNeurons.png

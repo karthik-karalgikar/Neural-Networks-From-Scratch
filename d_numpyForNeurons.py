@@ -20,4 +20,4 @@ biases = [2.0, 3.0, 0.5]
 numpyLayerOutput = np.dot(weightsSim, inputsMul) + biases
 print(numpyLayerOutput)
 
-#refer pg 26 of the book for visualisation
+#refer pg 39 of the book for visualisation

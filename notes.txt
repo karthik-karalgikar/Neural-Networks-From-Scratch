@@ -1,0 +1,3 @@
+A neural network without any hidden layers, is just a regression.
+Hidden layers allow the network to learn non-linear relationships, which are common in real-world data, 
+and increase accuracy and generalization by transforming inputs into more useful representations. 
