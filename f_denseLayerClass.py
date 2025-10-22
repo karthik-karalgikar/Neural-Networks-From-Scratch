@@ -6,12 +6,12 @@ from nnfs.datasets import spiral_data
 
 nnfs.init()
 
-X = [[1, 2, 3, 4],
-    [2, 3, 4, 5],
-    [5, 6, 7, 8]]
+# X = [[1, 2, 3, 4],
+#     [2, 3, 4, 5],
+#     [5, 6, 7, 8]]
 
-# Create dataset
-X, y = spiral_data(samples=100, classes=3)
+# # Create dataset
+# X, y = spiral_data(samples=100, classes=3)
 
 class Layer_Dense:
 
@@ -41,17 +41,39 @@ class Activation_ReLU:
     def forward(self, inputs):
         self.output = np.maximum(0, inputs)
 
-layer1 = Layer_Dense(2, 5)
+class Activation_Softmax:
+    def forward(self, inputs):
+        exp_values = np.exp(inputs - np.max(inputs, axis = 1, keepdims = True))
+        probabilities = exp_values / np.sum(exp_values, axis = 1, keepdims = True)
+        self.output = probabilities
+
+X, y = spiral_data(samples=100, classes=3)
+
+dense1 = Layer_Dense(2, 3)
 activation1 = Activation_ReLU()
 
-# layer2 = Layer_Dense(5, 3)
+dense2 = Layer_Dense(3, 3)
+activation2 = Activation_Softmax()
 
-layer1.forward(X)
+dense1.forward(X)
+activation1.forward(dense1.output)
 
-print(layer1.output)
+dense2.forward(activation1.output)
+activation2.forward(dense2.output)
 
-activation1.forward(layer1.output)
-print(activation1.output)
+print(activation2.output[:5])
+
+# layer1 = Layer_Dense(2, 5)
+# activation1 = Activation_ReLU()
+
+# # layer2 = Layer_Dense(5, 3)
+
+# layer1.forward(X)
+
+# print(layer1.output)
+
+# activation1.forward(layer1.output)
+# print(activation1.output)
 # layer2.forward(layer1.output)
 
 # print(layer2.output)
