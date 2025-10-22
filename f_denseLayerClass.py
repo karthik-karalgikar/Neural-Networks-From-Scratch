@@ -47,6 +47,28 @@ class Activation_Softmax:
         probabilities = exp_values / np.sum(exp_values, axis = 1, keepdims = True)
         self.output = probabilities
 
+class Loss:
+    def calculate(self, output, y):
+        sample_losses = self.forward(output, y)
+        data_loss = np.mean(sample_losses)
+
+        return data_loss
+
+class Loss_Categorical_Cross_Entropy(Loss):
+    def forward(self, y_pred, y_true):
+        samples = len(y_pred)
+        y_pred_clipped = np.clip(y_pred, 1e-7, 1-1e-7)
+
+        if len(y_pred.shape) == 1:
+            correct_cofidences = y_pred_clipped[range(samples), y_true]
+        elif len(y_pred.shape) == 2:
+            correct_cofidences = np.sum(y_pred_clipped * y_true, axis = 1)
+
+        negative_log_likelihood = np.log(correct_cofidences)
+
+        return negative_log_likelihood
+
+
 X, y = spiral_data(samples=100, classes=3)
 
 dense1 = Layer_Dense(2, 3)
@@ -62,6 +84,10 @@ dense2.forward(activation1.output)
 activation2.forward(dense2.output)
 
 print(activation2.output[:5])
+
+loss_function = Loss_Categorical_Cross_Entropy()
+loss = loss_function.calculate(activation2.output, y)
+print("Loss = ", loss)
 
 # layer1 = Layer_Dense(2, 5)
 # activation1 = Activation_ReLU()
