@@ -114,9 +114,13 @@ def init_params():
 def ReLU(Z):
     return np.maximum(0, Z)
 
+#refer f
+
 def softmax(Z):
     expZ = np.exp(Z - np.max(Z, axis = 0))
     return expZ / expZ.sum(axis = 0, keepdims = True)
+
+#refer g
 
 def forward_prop(W1 ,b1, W2, b2, X):
     Z1 = W1.dot(X) + b1
@@ -126,12 +130,93 @@ def forward_prop(W1 ,b1, W2, b2, X):
 
     return Z1, A1, Z2, A2
 
+#normal forward prop dot product - July 1
+
 def one_hot(Y):
     one_hot_Y = np.zeros((Y.size, Y.max() + 1))
     one_hot_Y[np.arange(Y.size), Y] = 1
     one_hot_Y = one_hot_Y.T
 
     return one_hot_Y
+
+'''
+Suppose I have 3 classes - 
+Dog - 0
+Cat - 1
+Rat - 2
+
+Label array - 
+Y = np.array([0, 2, 1, 0])
+Have to convert this into a form neural network can understand —
+each label as a vector of 0s and 1s, where only the correct class index is 1.
+
+Meaning - 
+[0, 2, 1, 0] becomes 
+[
+    [1, 0, 0, 1], -> class 0
+    [0, 0, 1, 0], -> class 1
+    [0, 1, 0, 0] -> class 2
+]
+
+This is called one-hot encoded matrix.
+
+Code explanation - 
+
+one_hot_Y = np.zeros((Y.size, Y.max() + 1)) 
+
+Y.size = number of rows in Y 
+Y.size = 4
+
+Y.max() + 1 = number of possible columns(classes) + 1
+Y.max() = 3 + 1 = 4
+
+np.zeros(4, 3)
+
+one_hot_Y = 
+[
+    [0, 0, 0], 
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+]
+
+one_hot_Y[np.arange(Y.size), Y] = 1 
+
+np.arange(5, 10) => [5, 6, 7, 8, 9]
+=> np.arange(Y.size) = np.arange(4)
+
+np.arange(4) = [0, 1, 2, 3]
+Y = [0, 2, 1, 0]
+
+one_hot_Y[[0, 1, 2, 3], [0, 2, 1, 0]] = 1 means
+In each row i, set the column equal to the class label Y[i] to 1.
+
+So this means that 
+Row 0, Col 0 = 1
+Row 1, Col 2 = 1
+Row 2, Col 1 = 1
+Row 3, Col 0 = 1
+
+=> 
+one_hot_Y = 
+[
+    [1, 0, 0], 
+    [0, 0, 1],
+    [0, 1, 0],
+    [1, 0, 0]
+]
+
+one_hot_Y = one_hot_Y.T
+taking transpose = 
+
+[
+    [1, 0, 0, 1],
+    [0, 0, 1, 0],
+    [0, 1, 0, 0]
+]
+
+which is the final output.
+'''
 
 def ReLU_deriv(Z):
     return Z > 0
