@@ -44,7 +44,7 @@ w1, w2, w3, w4, b1, b2 = init_params()
 
 #forward pass (input * weights + bias)
 def forward(x_seq):
-    T = x_seq.shape[0] # z_seq is the input (0, 1, etc) -> (today, tomorrow, yesterday, etc)
+    T = x_seq.shape[0] # x_seq is the input (0, 1, etc) -> (today, tomorrow, yesterday, etc)
     h_prev = np.zeros((hidden_size, 1)) # a1, a2, a3, etc
     hs = [] #hidden states h_t
     zs = [] #pre-activation z_t
